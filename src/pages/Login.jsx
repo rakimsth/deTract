@@ -7,13 +7,16 @@ import { useEffect } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { isConnected } = useWalletConnect();
+  const { isConnected, selectedNetworkId, address, chainId, signer } =
+    useWalletConnect();
 
   useEffect(() => {
     if (isConnected) {
       navigate("/");
     }
   }, [isConnected]);
+
+  console.log({ selectedNetworkId, address, chainId, isConnected, signer });
 
   return (
     <>
