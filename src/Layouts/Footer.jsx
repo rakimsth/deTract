@@ -54,7 +54,7 @@ export default function Footer() {
             </div>
           </nav>
           <p className="mt-8 text-base leading-6 text-center text-gray-400">
-            © 2021 Paper Retraction, Inc. All rights reserved.
+            © 2021 DeTract, Inc. All rights reserved.
           </p>
         </div>
       </section>
