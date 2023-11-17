@@ -3,14 +3,17 @@ import researchIcon from "../assets/research.png";
 import { WalletConnect } from "../components/WalletConnect";
 
 import { useWalletConnect } from "../hooks/useWalletConnect";
+import { useEffect } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
   const { isConnected } = useWalletConnect();
-  if (isConnected) {
-    navigate("/");
-  }
-  console.log(isConnected);
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate("/");
+    }
+  }, [isConnected]);
 
   return (
     <>
