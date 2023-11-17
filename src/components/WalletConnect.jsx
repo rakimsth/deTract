@@ -1,7 +1,6 @@
 import { useWalletConnect } from "../hooks/useWalletConnect";
 export const WalletConnect = () => {
-  const { open, selectedNetworkId, address, chainId, isConnected, signer } =
-    useWalletConnect();
+  const { open } = useWalletConnect();
   return (
     <>
       <button

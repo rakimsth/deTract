@@ -7,6 +7,7 @@ import Papers from "./pages/Papers";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import ErrorPage from "./pages/404";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 // 1. Get projectId
 const projectId = "fa5d8effe043bedf529652291d0a00bf";
@@ -42,9 +43,30 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="papers" element={<Papers />} />
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="papers"
+              element={
+                <PrivateRoute>
+                  <Papers />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
