@@ -50,6 +50,7 @@ export default function Details() {
         title: challenge?.title,
         description: challenge?.description,
         user_address: address,
+        doi: doi,
       });
       const formData = new FormData();
       file &&
