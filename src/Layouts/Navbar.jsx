@@ -7,7 +7,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import researchIcon from "../assets/research.png";
+import researchIcon from "../assets/research.jpeg";
 
 import { useWalletConnect } from "../hooks/useWalletConnect";
 import { Link, useNavigate, useLocation } from "react-router-dom";

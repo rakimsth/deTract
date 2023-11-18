@@ -1,43 +1,136 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { usePapers } from "../hooks/usePapers";
+import moment from "moment";
+import Alert from "../components/Alert";
+
 export default function List() {
+  const { fetchDetail, loading } = usePapers();
+  const [paper, setPaper] = useState("");
+  const [result, setResult] = useState(null);
+  const [info, setInfo] = useState("");
+
+  const handleSubmit = async (e) => {
+    const prefix = "http://dx.doi.org/";
+    const query = paper.includes("http://") ? paper : prefix.concat(paper);
+    const resp = await fetchDetail(query);
+    if (!resp.data.message.paperData) {
+      setInfo("Not Found");
+      setTimeout(() => {
+        setInfo("");
+      }, 2500);
+    } else {
+      setResult(resp.data.message.paperData);
+    }
+  };
+
+  console.log(result);
+  const clearResult = () => {};
   return (
     <>
-      <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-        <div className="container mx-auto bg-indigo-500 rounded-lg p-14">
-          <form>
-            <h1 className="text-center font-bold text-white text-4xl">
-              Find the perfect domain name
-            </h1>
-            <p className="mx-auto font-normal text-sm my-6 max-w-lg">
-              Enter your select domain name and choose any extension name in the
-              next step (choose between .com, .online, .tech, .site, .net, and
-              more)
-            </p>
-            <div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
+      <div className="h-80 bg-gray-100 flex justify-center items-center">
+        <div className="flex items-center justify-center ">
+          {!loading ? (
+            <div className="flex border-2 border-gray-200 rounded">
               <input
-                className="text-base text-gray-400 flex-grow outline-none px-2 "
                 type="text"
-                placeholder="Search your domain name"
+                className="px-4 py-2 w-80"
+                value={paper}
+                onChange={(e) => setPaper(e.target.value)}
+                placeholder="Search any Journal using DOI..."
               />
-              <div className="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
-                <select
-                  id="Com"
-                  className="text-base text-gray-800 outline-none border-2 px-4 py-2 rounded-lg"
-                >
-                  <option value="com" selected>
-                    com
-                  </option>
-                  <option value="net">net</option>
-                  <option value="org">org</option>
-                  <option value="io">io</option>
-                </select>
-                <button className="bg-indigo-500 text-white text-base rounded-lg px-4 py-2 font-thin">
-                  Search
-                </button>
-              </div>
+              <button
+                className="px-4 text-white bg-gray-600 border-l"
+                disabled={loading}
+                onClick={handleSubmit}
+              >
+                Search
+              </button>
             </div>
-          </form>
+          ) : (
+            <>Loading...</>
+          )}
+        </div>
+      </div>
+      {info ? <Alert title="Sorry!" message="Journal not found" /> : null}
+      <div className="h-100 bg-gray-100 flex justify-center items-center">
+        <div className="flex items-center justify-center">
+          {result && result?.title ? <FoundCard result={result} /> : null}
         </div>
       </div>
     </>
   );
 }
+
+const FoundCard = ({ result }) => {
+  const pattern = /http:\/\/dx\.doi\.org\/(\d+\.\d+\/[a-zA-Z0-9./-]+)/;
+
+  // Use exec to match the pattern against the input string
+  const match = result && result?.doi ? pattern.exec(result.doi) : "";
+  const id = match[1] || "";
+  return (
+    <>
+      <div>
+        <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+          <table className="min-w-full leading-normal">
+            <thead>
+              <tr>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Title
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Author
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  DOI
+                </th>
+                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Published
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center">
+                    <div className="ml-3">
+                      <Link to={`/papers/${id}`}>
+                        <p className="text-gray-900 whitespace-no-wrap underline">
+                          {result && result?.title
+                            ? result?.title.substring(0, 80)
+                            : ""}
+                        </p>
+                      </Link>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    {result?.author.length > 0
+                      ? result?.author.map((author) => author.name).toString()
+                      : ""}
+                  </p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <a
+                    href={result.doi}
+                    className="text-gray-900 whitespace-no-wrap underline"
+                  >
+                    {result && result?.doi ? result?.doi : ""}
+                  </a>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    {result && result?.published
+                      ? moment(result?.published).format("lll")
+                      : ""}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+};

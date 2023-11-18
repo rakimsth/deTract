@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import ErrorPage from "./pages/404";
 import { PrivateRoute } from "./components/PrivateRoute";
+import Details from "./pages/Details";
 
 // 1. Get projectId
 const projectId = "fa5d8effe043bedf529652291d0a00bf";
@@ -52,21 +53,23 @@ function App() {
               }
             />
             <Route
-              path="dashboard"
+              path="/dashboard"
               element={
                 <PrivateRoute>
                   <Dashboard />
                 </PrivateRoute>
               }
             />
+            <Route path="/papers/:id*" element={<Details />} />
             <Route
-              path="papers"
+              path="/papers"
               element={
                 <PrivateRoute>
                   <Papers />
                 </PrivateRoute>
               }
             />
+
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>

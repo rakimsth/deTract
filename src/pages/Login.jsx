@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
-import researchIcon from "../assets/research.png";
+import { useNavigate } from "react-router-dom";
+import researchIcon from "../assets/research.jpeg";
 import { WalletConnect } from "../components/WalletConnect";
 
 import { useWalletConnect } from "../hooks/useWalletConnect";
