@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import instance from "../utils/api";
 
 export const usePapers = () => {
   const [loading, setLoading] = useState(false);
 
-  const fetchDetail = async (id) => {
+  const fetchDetail = useCallback(async (id) => {
     try {
       setLoading(true);
       const result = await instance.post(`/get-paper`, { paper_id: id });
@@ -15,6 +15,7 @@ export const usePapers = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
   return { fetchDetail, loading };
 };

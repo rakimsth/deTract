@@ -1,11 +1,36 @@
+import { useEffect, useState, useCallback } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
+import { usePapers } from "../hooks/usePapers";
+import PaperSnippet from "../components/PaperSnippet";
 
 export default function Details() {
-  const location = useLocation();
-  console.log({ location });
+  const { fetchDetail } = usePapers();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const doi = searchParams.get("doi");
+  const [paperInfo, setPaperInfo] = useState(null);
+
+  const getById = useCallback(async () => {
+    try {
+      const { data } = await fetchDetail(doi);
+      if (data) {
+        setPaperInfo(data.message.paperData);
+      }
+    } catch (e) {
+      alert(e);
+    }
+  }, [doi, fetchDetail]);
+
+  useEffect(() => {
+    getById();
+  }, [getById]);
+
+  console.log(paperInfo);
+
   return (
     <form>
+      <div>{paperInfo && <PaperSnippet data={paperInfo} />}</div>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">

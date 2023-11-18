@@ -63,11 +63,6 @@ export default function List() {
 }
 
 const FoundCard = ({ result }) => {
-  const pattern = /http:\/\/dx\.doi\.org\/(\d+\.\d+\/[a-zA-Z0-9./-]+)/;
-
-  // Use exec to match the pattern against the input string
-  const match = result && result?.doi ? pattern.exec(result.doi) : "";
-  const id = match[1] || "";
   return (
     <>
       <div>
@@ -94,7 +89,7 @@ const FoundCard = ({ result }) => {
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div className="flex items-center">
                     <div className="ml-3">
-                      <Link to={`/papers/${id}`}>
+                      <Link to={`/papers/${result.counter}?doi=${result.doi}`}>
                         <p className="text-gray-900 whitespace-no-wrap underline">
                           {result && result?.title
                             ? result?.title.substring(0, 80)
