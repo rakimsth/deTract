@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import { usePapers } from "../hooks/usePapers";
 import PaperSnippet from "../components/PaperSnippet";
@@ -61,10 +62,27 @@ export default function Details() {
           formData.append("images", file);
         });
       formData.append("metadata", payload);
-      const { data } = await upload(formData);
-      if (data?.IpfsHash) {
-        alert("Challenge added successfully");
-        navigate("/dashboard");
+
+      const result = await Swal.fire({
+        title: "Warning!",
+        text: "Your staked 0.05 ETH will only be refunded if the paper is retracted.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, challenge it!",
+      });
+      if (result.isConfirmed) {
+        const { data } = await upload(formData);
+
+        if (data?.IpfsHash) {
+          Swal.fire({
+            title: "Challenged!",
+            text: "Challenge added successfully",
+            icon: "success",
+          });
+          navigate("/dashboard");
+        }
       }
     } catch (e) {
       alert(e);
@@ -186,7 +204,7 @@ export default function Details() {
           type="submit"
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Save
+          Stake and challenge
         </button>
       </div>
     </form>
