@@ -5,7 +5,6 @@ import { titleCase } from "../utils/properCase";
 
 export default function Layout() {
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <div className="min-h-full">

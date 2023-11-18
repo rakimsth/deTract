@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { useWalletConnect } from "../hooks/useWalletConnect";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export const PrivateRoute = ({ children }) => {
-  const { address, isConnected } = useWalletConnect();
+  const { address, loggedIn } = useAuthContext();
   return (
-    <>{address && isConnected ? children : <Navigate replace to="/login" />}</>
+    <>{address && loggedIn ? children : <Navigate replace to="/login" />}</>
   );
 };

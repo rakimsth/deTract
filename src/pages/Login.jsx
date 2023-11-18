@@ -1,22 +1,28 @@
+import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import researchIcon from "../assets/research.png";
 import { WalletConnect } from "../components/WalletConnect";
 
 import { useWalletConnect } from "../hooks/useWalletConnect";
-import { useEffect } from "react";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { isConnected, selectedNetworkId, address, chainId, signer } =
-    useWalletConnect();
+  const { setLoggedIn, setAddress, setChainId, setSigner } = useAuthContext();
+  const { isConnected, address, chainId, signer } = useWalletConnect();
 
   useEffect(() => {
-    if (isConnected) {
-      navigate("/");
+    async function setUp() {
+      if (isConnected && address && chainId && signer) {
+        await setLoggedIn(true);
+        await setAddress(address);
+        await setChainId(chainId);
+        await setSigner(signer);
+        navigate("/dashboard");
+      }
     }
+    setUp();
   }, [isConnected]);
-
-  console.log({ selectedNetworkId, address, chainId, isConnected, signer });
 
   return (
     <>

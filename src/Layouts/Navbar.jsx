@@ -6,12 +6,11 @@ import {
   BellIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-// import { MdLogout } from "react-icons/md";
 
 import researchIcon from "../assets/research.png";
 
 import { useWalletConnect } from "../hooks/useWalletConnect";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const user = {
   name: "Tom Cook",
@@ -63,9 +62,9 @@ export default function Navbar() {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.href.includes(pathname)
                               ? "bg-gray-900 text-white"
@@ -75,7 +74,7 @@ export default function Navbar() {
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
