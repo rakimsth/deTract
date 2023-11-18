@@ -17,5 +17,21 @@ export const usePapers = () => {
     }
   }, []);
 
-  return { fetchDetail, loading };
+  const upload = async (payload) => {
+    try {
+      setLoading(true);
+      const result = await instance.post(`/upload`, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return result;
+    } catch (e) {
+      alert(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchDetail, upload, loading };
 };

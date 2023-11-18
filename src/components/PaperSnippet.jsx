@@ -2,7 +2,6 @@ import React from "react";
 import { FaUsers } from "react-icons/fa";
 
 export default function PaperSnippet({ data }) {
-  console.log({ data });
   return (
     <div>
       <div className="px-4 border">
@@ -37,7 +36,7 @@ export default function PaperSnippet({ data }) {
                 data.author.length > 0 &&
                 data.author.map((d) => d.name.concat(", "))}
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -53,7 +52,7 @@ export default function PaperSnippet({ data }) {
                 />
               </svg>
               4,7 (750 Reviews)
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
