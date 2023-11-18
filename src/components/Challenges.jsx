@@ -74,7 +74,11 @@ export default function Challenges() {
                             : ""}
                         </th>
                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                          <a href={challenge?.doi} target="_blank">
+                          <a
+                            href={challenge?.doi}
+                            className="underline"
+                            target="_blank"
+                          >
                             Link
                           </a>
                         </th>

@@ -6,26 +6,6 @@ import PublicationCard from "./PublicationCard";
 
 export default function Challenges() {
   const { getAllChallenges } = usePapers();
-  const publications = [
-    {
-      timeAgo: "55 minutes ago",
-      title:
-        "Prolonged immune alteration following resolution of acute inflammation in humans",
-      journal: "PLoS ONE",
-      year: 2017,
-      authors: [
-        "Madhur P. Motwani",
-        "Justine Newson",
-        "Simon Kwong",
-        "Angela Richard-Loendt",
-        "Romain Colas",
-        "Jesmond Dalli",
-        "Derek W. Gilroy",
-      ],
-      commentsCount: 1,
-    },
-    // ... other publication data
-  ];
 
   const [challenges, setChallenges] = useState([]);
 
@@ -43,6 +23,7 @@ export default function Challenges() {
   useEffect(() => {
     getChallenges();
   }, [getChallenges]);
+
   return (
     <div>
       <div className="px-4 sm:px-0">

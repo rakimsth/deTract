@@ -13,7 +13,11 @@ const PublicationCard = ({ data }) => {
       <h3 className="font-semibold text-lg text-gray-800 mb-2">
         {data?.paper || ""}
       </h3>
-      <p className="text-sm text-gray-600 mb-4">{/* {journal} ({year}) */}</p>
+      <p className="text-sm text-gray-600 mb-4">
+        <a href={data?.doi} className="underline">
+          Check the original source
+        </a>
+      </p>
       <div className="text-sm text-gray-800 mb-2">
         {data.author && data.author.length > 1
           ? data.authors.map((author, index) => (
@@ -26,7 +30,7 @@ const PublicationCard = ({ data }) => {
       </div>
       <div className="flex items-center justify-between">
         <Link
-          to={`/challenge?doi=${data.doi}`}
+          to={`/vote?doi=${data.doi}`}
           className="text-blue-600 hover:text-blue-800 visited:text-purple-600"
         >
           {/* {commentsCount}  */}
