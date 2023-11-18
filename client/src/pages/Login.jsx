@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { MetaMaskButton } from "@metamask/sdk-react-ui";
+
 import researchIcon from "../assets/research.jpeg";
 import { WalletConnect } from "../components/WalletConnect";
 
@@ -40,12 +42,17 @@ export default function Login() {
             </h2>
           </div>
 
-          
           <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
             <div>
               <div className="flex items-center justify-center">
                 <span>
                   <WalletConnect />
+                  <div className="pt-2">
+                    <MetaMaskButton
+                      theme={"dark"}
+                      color="black"
+                    ></MetaMaskButton>
+                  </div>
                 </span>
               </div>
             </div>

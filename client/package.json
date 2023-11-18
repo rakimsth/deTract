@@ -13,6 +13,9 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@metamask/sdk-react-ui": "^0.12.1",
+    "@web3inbox/core": "^0.0.22",
+    "@web3inbox/widget-react": "^0.6.25",
     "@web3modal/ethers5": "^3.3.2",
     "axios": "^1.6.2",
     "ethers": "^5.7.2",
