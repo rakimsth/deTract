@@ -1,4 +1,31 @@
+import { useCallback, useEffect, useState } from "react";
+
+import { usePapers } from "../hooks/usePapers";
+import { useAuthContext } from "../contexts/AuthContext";
+import { getRemainingTime } from "../utils/dateManipulation";
+
+import Alert from "./Alert";
+
 export default function Challenges() {
+  const { address } = useAuthContext();
+  const [data, setData] = useState([]);
+  const { getUserChallenge } = usePapers();
+
+  const getMyChallenges = useCallback(async () => {
+    try {
+      const { data } = await getUserChallenge(address);
+      if (data) {
+        setData(data.message);
+      }
+    } catch (e) {
+      alert(e);
+    }
+  }, [address, getUserChallenge]);
+
+  useEffect(() => {
+    getMyChallenges();
+  }, [getMyChallenges]);
+
   return (
     <div>
       <div className="px-4 sm:px-0">
@@ -28,30 +55,53 @@ export default function Challenges() {
                     Time Remaining
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Votes
+                    My Evidence
                   </th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                    Amigo
-                  </th>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                    Amigo
-                  </th>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                    Amigo
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    46,53%
-                  </td>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                    46,53%
-                  </td>
-                </tr>
+                {data && data.length > 0 ? (
+                  data.map((challenge, idx) => {
+                    return (
+                      <tr key={idx}>
+                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                          {challenge?.title}
+                        </th>
+                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                          {challenge?.description
+                            ? challenge?.description.substring(0, 50)
+                            : ""}
+                        </th>
+                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
+                          <a href={challenge?.doi} target="_blank">
+                            Link
+                          </a>
+                        </th>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          {challenge?.createdAt
+                            ? getRemainingTime(challenge?.createdAt.seconds)
+                            : ""}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <a
+                            href={challenge?.image}
+                            className="underline"
+                            target="_blank"
+                          >
+                            Check
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={5}>
+                      <Alert title="Sorry!" message="No Challenges Found" />
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

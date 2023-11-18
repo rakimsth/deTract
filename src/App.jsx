@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import ErrorPage from "./pages/404";
 import { PrivateRoute } from "./components/PrivateRoute";
 import Details from "./pages/Details";
+import ChallengeDetail from "./pages/ChallengeDetail";
 
 // 1. Get projectId
 const projectId = "fa5d8effe043bedf529652291d0a00bf";
@@ -60,7 +61,8 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/papers/:id*" element={<Details />} />
+            <Route path="/challenge/:id" element={<ChallengeDetail />} />
+            <Route path="/papers/:id" element={<Details />} />
             <Route
               path="/papers"
               element={
