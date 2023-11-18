@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { usePapers } from "../hooks/usePapers";
 import PaperSnippet from "../components/PaperSnippet";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useContract } from "../hooks/useContract";
 
 export default function Details() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +14,7 @@ export default function Details() {
 
   const navigate = useNavigate();
   const { address } = useAuthContext();
+  const { getVotingPeriod, challengePaper } = useContract();
 
   const { fetchDetail, upload, loading } = usePapers();
 
