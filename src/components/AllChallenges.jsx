@@ -1,4 +1,48 @@
+import { useState, useEffect, useCallback } from "react";
+import { usePapers } from "../hooks/usePapers";
+
+import Alert from "./Alert";
+import PublicationCard from "./PublicationCard";
+
 export default function Challenges() {
+  const { getAllChallenges } = usePapers();
+  const publications = [
+    {
+      timeAgo: "55 minutes ago",
+      title:
+        "Prolonged immune alteration following resolution of acute inflammation in humans",
+      journal: "PLoS ONE",
+      year: 2017,
+      authors: [
+        "Madhur P. Motwani",
+        "Justine Newson",
+        "Simon Kwong",
+        "Angela Richard-Loendt",
+        "Romain Colas",
+        "Jesmond Dalli",
+        "Derek W. Gilroy",
+      ],
+      commentsCount: 1,
+    },
+    // ... other publication data
+  ];
+
+  const [challenges, setChallenges] = useState([]);
+
+  const getChallenges = useCallback(async () => {
+    try {
+      const { data } = await getAllChallenges();
+      if (data) {
+        setChallenges(data.message);
+      }
+    } catch (e) {
+      alert(e);
+    }
+  }, [getAllChallenges]);
+
+  useEffect(() => {
+    getChallenges();
+  }, [getChallenges]);
   return (
     <div>
       <div className="px-4 sm:px-0">
@@ -9,45 +53,14 @@ export default function Challenges() {
           All the Challenges so far...
         </p>
       </div>
-      <div className="w-full mb-12 xl:mb-0 mx-auto">
-        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-          <div className="block w-full overflow-x-auto mt-5">
-            <div className="panel panel-pubpeer panel-default">
-              <div className="panel-body">
-                <div className="row">
-                  <div className="date col-md-1">7 hours ago</div>
-                  <div className="col-md-10">
-                    <div className="col-md-12">
-                      <h3>
-                        <a href="/publications/9AE2E0953E78F791D0D33CEAC0D57A#1">
-                          Integrating Fermentation Engineering and
-                          Organopalladium Chemocatalysis for the Production of
-                          Squalene from Biomass-Derived Carbohydrates as the
-                          Starting Material
-                        </a>
-                      </h3>
-                    </div>
-                    <div className="col-md-12">
-                      <p>Cuicui Wu, Kaifei Tian, Xuan Guo, Yunming Fang</p>
-                    </div>
-                  </div>{" "}
-                </div>
-              </div>{" "}
-              <div className="panel-footer">
-                <div className="row">
-                  <div className="col-md-12">
-                    <span className="pull-left">
-                      <strong>Catalysts (2023)</strong>
-                    </span>{" "}
-                    <span className="pull-right">
-                      <i className="fa fa-comment-o"></i> 1 comment
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="container mx-auto p-4">
+        {challenges && challenges.length > 0 ? (
+          challenges.map((challenge, index) => (
+            <PublicationCard key={index} {...challenge} />
+          ))
+        ) : (
+          <Alert title="Sorry!" message="No challenges found..." />
+        )}
       </div>
     </div>
   );

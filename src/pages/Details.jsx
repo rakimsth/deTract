@@ -50,6 +50,8 @@ export default function Details() {
         title: challenge?.title,
         description: challenge?.description,
         user_address: address,
+        paper: paperInfo?.title,
+        authors: paperInfo?.author,
         doi: doi,
       });
       const formData = new FormData();

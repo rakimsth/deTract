@@ -47,5 +47,17 @@ export const usePapers = () => {
     }
   }, []);
 
-  return { fetchDetail, getUserChallenge, upload, loading };
+  const getAllChallenges = useCallback(async () => {
+    try {
+      setLoading(true);
+      const result = await instance.post(`/get-all-challenges`);
+      return result;
+    } catch (e) {
+      alert(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  return { fetchDetail, getAllChallenges, getUserChallenge, upload, loading };
 };

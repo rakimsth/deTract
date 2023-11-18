@@ -61,7 +61,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/challenge/:id" element={<ChallengeDetail />} />
+            <Route path="/challenge" element={<ChallengeDetail />} />
             <Route path="/papers/:id" element={<Details />} />
             <Route
               path="/papers"
