@@ -33,7 +33,7 @@ export default function Challenges() {
           My Challenges
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          All the Challenges I have made so far...
+          Challenges made
         </p>
       </div>
       <div className="w-full mb-12 xl:mb-0 mx-auto">
