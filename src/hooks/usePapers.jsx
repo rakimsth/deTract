@@ -33,5 +33,19 @@ export const usePapers = () => {
     }
   };
 
-  return { fetchDetail, upload, loading };
+  const getUserChallenge = useCallback(async (user_address) => {
+    try {
+      setLoading(true);
+      const result = await instance.post(`/get-user-challenges`, {
+        user_address,
+      });
+      return result;
+    } catch (e) {
+      alert(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  return { fetchDetail, getUserChallenge, upload, loading };
 };

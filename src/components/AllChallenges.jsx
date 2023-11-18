@@ -3,10 +3,10 @@ export default function Challenges() {
     <div>
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">
-          My Challenges
+          All Challenges
         </h3>
         <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          All the Challenges I have made so far...
+          All the Challenges so far...
         </p>
       </div>
       <div className="w-full mb-12 xl:mb-0 mx-auto">

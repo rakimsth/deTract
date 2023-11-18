@@ -91,7 +91,7 @@ export default function Details() {
                 htmlFor="title"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Title
+                Challenge title
               </label>
               <div className="mt-2">
                 <input
@@ -112,7 +112,7 @@ export default function Details() {
                 htmlFor="description"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Description
+                Challenge description
               </label>
               <div className="mt-2">
                 <textarea
