@@ -86,7 +86,6 @@ export default function Details() {
           });
           navigate("/dashboard");
         }
-
       }
     } catch (e) {
       alert(e);

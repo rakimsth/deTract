@@ -59,8 +59,74 @@ export default function ChallengeDetail() {
 
   return (
     <>
-      <div>
-        <div className="flex gap-2 pt-10 float-right">
+      <div className="container w-max md:max-w-4xl mx-auto pt-20">
+        <div className="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
+          <div className="font-sans">
+            <p className="text-base md:text-sm text-green-500 font-bold">
+              &lt;{" "}
+              <Link
+                to="/dashboard"
+                className="text-base md:text-sm text-green-500 font-bold no-underline hover:underline"
+              >
+                BACK TO CHALLENGES
+              </Link>
+            </p>
+            <h1 className="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
+              {paperInfo ? paperInfo?.title : ""}
+            </h1>
+            <p className="text-xs md:text-base font-normal text-gray-600">
+              {paperInfo && paperInfo?.author
+                ? paperInfo.author.map((d) => d.name).toString()
+                : ""}
+            </p>
+            <p className="text-sm md:text-base font-normal text-gray-600 mt-2">
+              Published at{" "}
+              {paperInfo && paperInfo?.published
+                ? moment(paperInfo?.published).format("lll")
+                : ""}
+            </p>
+          </div>
+
+          <p className="py-6 text-sm">{paperInfo?.summary || ""}</p>
+          <blockquote className="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+            Challenge details
+          </blockquote>
+          <div className="max-w-2xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {thisChallenge ? thisChallenge?.data?.title : ""}
+              </h5>
+            </a>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {thisChallenge ? thisChallenge?.data?.description : ""}
+            </p>
+            <a
+              target="_blank"
+              href={
+                thisChallenge ? "//".concat(thisChallenge?.data?.image) : ""
+              }
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Link to Evidence
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div className="flex gap-2 text-center p-2 px-4 md:px-6 ">
           <button
             onClick={() => handleRetract()}
             className="py-1.5 px-12 hover:text-green-600 hover:scale-105 hover:shadow text-center border border-gray-300 rounded-md border-gray-400 h-12 text-sm flex items-center gap-1 lg:gap-2"
@@ -102,74 +168,6 @@ export default function ChallengeDetail() {
             </svg>
             <span>Dismiss</span>
           </button>
-        </div>
-        <div className="container w-6/12 md:max-w-4xl mx-auto pt-20">
-          <div className="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal">
-            <div className="font-sans">
-              <p className="text-base md:text-sm text-green-500 font-bold">
-                &lt;{" "}
-                <Link
-                  to="/dashboard"
-                  className="text-base md:text-sm text-green-500 font-bold no-underline hover:underline"
-                >
-                  BACK TO CHALLENGES
-                </Link>
-              </p>
-              <h1 className="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
-                {paperInfo ? paperInfo?.title : ""}
-              </h1>
-              <p className="text-xs md:text-base font-normal text-gray-600">
-                {paperInfo && paperInfo?.author
-                  ? paperInfo.author.map((d) => d.name).toString()
-                  : ""}
-              </p>
-              <p className="text-sm md:text-base font-normal text-gray-600 mt-2">
-                Published at{" "}
-                {paperInfo && paperInfo?.published
-                  ? moment(paperInfo?.published).format("lll")
-                  : ""}
-              </p>
-            </div>
-
-            <p className="py-6 text-sm">{paperInfo?.summary || ""}</p>
-            <blockquote className="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-              Challenge details
-            </blockquote>
-            <div className="max-w-2xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="#">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {thisChallenge ? thisChallenge?.data?.title : ""}
-                </h5>
-              </a>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                {thisChallenge ? thisChallenge?.data?.description : ""}
-              </p>
-              <a
-                target="_blank"
-                href={
-                  thisChallenge ? "//".concat(thisChallenge?.data?.image) : ""
-                }
-                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Link to Evidence
-                <svg
-                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </>
