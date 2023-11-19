@@ -37,7 +37,7 @@ export default function List() {
                 className="px-4 py-2 w-80"
                 value={paper}
                 onChange={(e) => setPaper(e.target.value)}
-                placeholder="Search any Journal using DOI..."
+                placeholder="Search any paper using DOI..."
               />
               <button
                 className="px-4 text-white bg-gray-600 border-l"

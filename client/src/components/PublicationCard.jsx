@@ -15,7 +15,7 @@ const PublicationCard = ({ challengeId, data }) => {
       </h3>
       <p className="text-sm text-gray-600 mb-4">
         <a href={data?.doi} className="underline">
-          Check the original source
+          {data?.doi}
         </a>
       </p>
       <div className="text-sm text-gray-800 mb-2">

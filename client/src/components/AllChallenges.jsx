@@ -30,9 +30,6 @@ export default function Challenges() {
         <h3 className="text-base font-semibold leading-7 text-gray-900">
           All Challenges
         </h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          All the Challenges so far...
-        </p>
       </div>
       <div className="container mx-auto p-4">
         {challenges && challenges.length > 0 ? (

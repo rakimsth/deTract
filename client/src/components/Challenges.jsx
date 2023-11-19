@@ -32,9 +32,6 @@ export default function Challenges() {
         <h3 className="text-base font-semibold leading-7 text-gray-900">
           My Challenges
         </h3>
-        <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Challenges made
-        </p>
       </div>
       <div className="w-full mb-12 xl:mb-0 mx-auto">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
@@ -55,7 +52,7 @@ export default function Challenges() {
                     Time Remaining
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    My Evidence
+                    Evidence
                   </th>
                 </tr>
               </thead>
@@ -89,7 +86,7 @@ export default function Challenges() {
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <a
-                            href={challenge?.image}
+                            href={"//".concat(challenge?.image)}
                             className="underline"
                             target="_blank"
                           >
@@ -102,7 +99,7 @@ export default function Challenges() {
                 ) : (
                   <tr>
                     <td colSpan={5}>
-                      <Alert title="Sorry!" message="No Challenges Found" />
+                      <Alert title="Sorry!" message="No Challenges Found." />
                     </td>
                   </tr>
                 )}

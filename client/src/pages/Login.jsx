@@ -39,7 +39,7 @@ export default function Login() {
                 <span className="sr-only">Detract</span>
                 <img className="h-8 w-auto" src={researchIcon} alt="" />
               </a>
-              <h2 className="text-3xl ml-2">DeTract</h2>
+              <h2 className="text-3xl ml-2">Detract</h2>
             </div>
           </nav>
         </header>
