@@ -1,0 +1,56 @@
+type ChallengeCreated @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  challenger: Bytes! # address
+  evidence: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClaimedByChallenger @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  challenger: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClaimedByPaperOwner @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  paperOwner: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type DownVoted @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  voter: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PaperPublished @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  owner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UpVoted @entity(immutable: true) {
+  id: Bytes!
+  paper: String! # string
+  voter: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

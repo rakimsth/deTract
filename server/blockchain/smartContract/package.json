@@ -1,0 +1,31 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "docgen": "hardhat docgen",
+    "deploy": "hardhat run --network baseGoerli scripts/deploy.js",
+    "test:deployed": "hardhat run scripts/detract-test.js --network baseGoerli",
+    "test:publishPaper": "hardhat run scripts/publish-paper.js --network baseGoerli"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^4.9.2",
+    "@openzeppelin/contracts-upgradeable": "^4.9.2",
+    "@openzeppelin/hardhat-upgrades": "^2.0.0",
+    "chai": "^4.3.7",
+    "ethers": "6.7.1",
+    "hardhat": "^2.12.4",
+    "prettier": "^2.8.3",
+    "prettier-plugin-solidity": "^1.1.1",
+    "solidity-coverage": "^0.8.3"
+  },
+  "dependencies": {
+    "@atixlabs/hardhat-time-n-mine": "^0.0.5",
+    "dotenv": "^16.3.1",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-docgen": "0.6.0-beta.36"
+  }
+}
