@@ -3,11 +3,13 @@ import { ethers } from "ethers";
 import { detractContractAddress, detractContractAbi } from "../constants/contract";
 
 import { useAuthContext } from "../contexts/AuthContext";
-
-
+import {
+    useWeb3ModalSigner,
+} from "@web3modal/ethers5/react";
 export const useContract = () => {
 
     const { signer } = useAuthContext();
+
     const [contract, setContract] = useState(null);
 
     const getContract = useCallback(() => {
@@ -30,8 +32,9 @@ export const useContract = () => {
         }
     };
 
-    const getMinimumStakeAmount = useCallback(async () => {
+    const getMinimumStakeAmount = async () => {
         try {
+            console.log(signer)
             console.log({ contract })
             const result = await contract.minStakingAmountForDetract();
             return result.toString();
@@ -39,13 +42,13 @@ export const useContract = () => {
             console.log(e);
             alert(e);
         }
-    }, []);
+    };
 
     const challengePaper = async (paper, evidence) => {
         try {
             const stakeAmount = await getMinimumStakeAmount();
             console.log({ stakeAmount })
-            const result = await contract.challengePaper(paper, evidence, { value: stakeAmount.toString() });
+            const result = await contract.challengePaper(paper, evidence, { value: ethers.utils.parseEther("0.001") });
             console.log({ result })
             return result.wait();
         } catch (e) {
@@ -75,8 +78,10 @@ export const useContract = () => {
     }
 
     useEffect(() => {
-        setContract(getContract());
-    }, [setContract])
+        const contract = new ethers.Contract(detractContractAddress, detractContractAbi, signer);
+        console.log({ contract })
+        setContract(contract);
+    }, [signer])
 
 
 
