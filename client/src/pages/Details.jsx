@@ -76,6 +76,7 @@ export default function Details() {
       });
       if (result.isConfirmed) {
         const { data } = await upload(formData);
+        await challengePaper(data?.doi, data?.IpfsHash);
 
         if (data?.IpfsHash) {
           Swal.fire({
@@ -85,6 +86,7 @@ export default function Details() {
           });
           navigate("/dashboard");
         }
+
       }
     } catch (e) {
       alert(e);
