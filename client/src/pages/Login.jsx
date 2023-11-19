@@ -29,14 +29,22 @@ export default function Login() {
   return (
     <>
       <div>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-12 py-12 lg:px-12">
+        <header className="bg-white">
+          <nav
+            className="mx-auto flex  items-center justify-between p-6 lg:px-8"
+            aria-label="Global"
+          >
+            <div className="flex lg:flex-1">
+              <a href="#" className="-m-1.5 p-1.5">
+                <span className="sr-only">Detract</span>
+                <img className="h-8 w-auto" src={researchIcon} alt="" />
+              </a>
+              <h2 className="text-3xl ml-2">DeTract</h2>
+            </div>
+          </nav>
+        </header>
+        <div className="mt-24 flex min-h-full flex-1 flex-col justify-center px-12 py-12 lg:px-12 h-fit items-center">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
-            <h2 className="text-7xl">DeTract</h2>
-            <img
-              className="mx-auto h-42 w-42"
-              src={researchIcon}
-              alt="Detract Icon"
-            />
             <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>

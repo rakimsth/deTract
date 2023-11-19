@@ -19,7 +19,7 @@ const user = {
 };
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
-  { name: "Challenges", href: "/papers" },
+  { name: "Challenge", href: "/papers" },
 ];
 
 const userNavigation = [
