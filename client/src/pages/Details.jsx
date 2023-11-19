@@ -7,14 +7,16 @@ import { usePapers } from "../hooks/usePapers";
 import PaperSnippet from "../components/PaperSnippet";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useContract } from "../hooks/useContract";
+import { getSmartWalletAddress, deploySmartWallet, sendUserop } from "../aa-handler/functions"
+import { detractContractAddress } from "../constants/contract";
 
 export default function Details() {
   const [searchParams, setSearchParams] = useSearchParams();
   const doi = searchParams.get("doi");
 
   const navigate = useNavigate();
-  const { address } = useAuthContext();
-  const { getVotingPeriod, challengePaper } = useContract();
+  const { address, signer } = useAuthContext();
+  const { contract, getVotingPeriod, challengePaper, getMinimumStakeAmount } = useContract();
 
   const { fetchDetail, upload, loading } = usePapers();
 
@@ -76,8 +78,14 @@ export default function Details() {
       });
       if (result.isConfirmed) {
         const { data } = await upload(formData);
-        await challengePaper(data?.doi, data?.IpfsHash);
-
+        const aa_address = await getSmartWalletAddress(signer, address);
+        const stakingAmt = await getMinimumStakeAmount();
+        const callData = contract.interface.encodeFunctionData(
+          "challengePaper",
+          [data?.doi, data?.IpfsHash]
+        );
+        const tx = {to: detractContractAddress, value: stakingAmt, data: callData};
+        const userOp = await sendUserop(aa_address, address, signer, tx);
         if (data?.IpfsHash) {
           Swal.fire({
             title: "Challenged!",
